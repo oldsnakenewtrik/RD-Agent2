@@ -1,0 +1,6 @@
+{
+  "title": "Marketing KPI Analysis",
+  "description": "Analysis of marketing performance indicators across campaigns",
+  "evaluation_metric": "accuracy",
+  "task_type": "classification"
+}

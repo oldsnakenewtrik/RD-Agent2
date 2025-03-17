@@ -1,0 +1,74 @@
+Looking at the error message and file structure you've provided, I see the issue with your Railway deployment. The error says `/opt/venv/bin/python: No module named rdagent.__main__; 'rdagent' is a package and cannot be directly executed`.
+
+Let me help you set up RD-Agent on Railway for your CSV marketing KPI analysis use case:
+
+1. **Fix the Deployment Issue**
+
+   Create a new file in your repository called `main.py` at the root level with the following content:
+
+```python
+from rdagent.app.cli import app
+
+if __name__ == "__main__":
+    app()
+```
+
+2. **Configure Railway Environment**
+
+   In your Railway project settings, you need to set the following environment variables:
+   
+   - `OPENAI_API_KEY` - Your OpenAI API key
+   - `CHAT_MODEL` - Set to "gpt-4-turbo" (or your preferred model)
+   - `PORT` - Set to 3000
+   - `KG_LOCAL_DATA_PATH` - Set to "/app/data"
+   
+3. **Update Your Dockerfile or Project Settings**
+
+   Create or modify your Dockerfile with:
+
+```dockerfile
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY . .
+
+RUN pip install -e .
+
+CMD ["python", "main.py", "kaggle", "--competition", "your-competition-id"]
+```
+
+   Alternatively, in your Railway project settings, set the start command to:
+   `python main.py kaggle --competition your-competition-id`
+
+4. **Prepare Your CSV Data**
+
+   In your repository, create a `data` directory and add a directory structure like:
+   
+   ```
+   data/
+   ├── your-competition-id/
+   │   └── your-marketing-kpi.csv
+   └── your-competition-id.json
+   ```
+   
+   Create a simple JSON configuration file for your marketing KPI data:
+   
+```json
+{
+  "title": "Marketing KPI Analysis",
+  "description": "Analysis of marketing performance indicators across campaigns",
+  "evaluation_metric": "accuracy",
+  "task_type": "classification"
+}
+```
+
+5. **Deploy to Railway**
+
+   - Push these changes to your GitHub repository
+   - Connect your Railway project to your repository
+   - Deploy the application
+
+This approach will get RD-Agent running on Railway with your marketing KPI data. Once deployed, you'll be able to access the web interface to analyze your data and visualize results.
+
+Would you like me to explain how to structure your marketing CSV data for optimal analysis, or help with any specific part of this setup?

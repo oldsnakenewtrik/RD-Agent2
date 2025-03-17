@@ -1,0 +1,7 @@
+campaign_id,date,channel,impressions,clicks,conversions,spend,revenue,roas
+campaign_1,2025-01-01,facebook,10000,500,50,1000,5000,5
+campaign_1,2025-01-02,facebook,11000,550,55,1100,5500,5
+campaign_2,2025-01-01,google,8000,400,40,800,4000,5
+campaign_2,2025-01-02,google,8800,440,44,880,4400,5
+campaign_3,2025-01-01,linkedin,5000,250,25,500,2500,5
+campaign_3,2025-01-02,linkedin,5500,275,27.5,550,2750,5
