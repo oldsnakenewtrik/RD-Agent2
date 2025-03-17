@@ -23,7 +23,8 @@ def main():
         print("Dependencies installed successfully.")
     
     # Set default environment variables if not already set
-    os.environ.setdefault("PORT", "3000")
+    port = os.environ.get("PORT", "8080")
+    os.environ.setdefault("PORT", port)
     os.environ.setdefault("KG_LOCAL_DATA_PATH", "/app/data")
     
     # Print environment for debugging
@@ -32,9 +33,11 @@ def main():
     print(f"KG_LOCAL_DATA_PATH: {os.environ.get('KG_LOCAL_DATA_PATH')}")
     print(f"CHAT_MODEL: {os.environ.get('CHAT_MODEL')}")
     
-    # Start the application
+    # Start the application by manipulating sys.argv
     print("Starting RD-Agent server...")
-    rdagent_app(["serve"])
+    # Override sys.argv to use the 'ui' command with the correct port
+    sys.argv = ["rdagent", "ui", f"--port={port}"]
+    rdagent_app()  # Call app function without arguments
 
 if __name__ == "__main__":
     main()
